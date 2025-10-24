@@ -2,6 +2,7 @@
 
 from .config import RepoRagConfig, load_config
 from .documents import Document
+from .generator import GenerationConfig, generate_answer
 from .embeddings import (
     DEFAULT_OPENAI_MODEL,
     DEFAULT_SENTENCE_TRANSFORMER_MODEL,
@@ -16,6 +17,8 @@ __all__ = [
     "DEFAULT_OPENAI_MODEL",
     "DEFAULT_SENTENCE_TRANSFORMER_MODEL",
     "ensure_backend",
+    "GenerationConfig",
+    "generate_answer",
     "build_index",
     "load_index",
     "query_index",
