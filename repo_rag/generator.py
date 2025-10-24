@@ -22,7 +22,7 @@ class GenerationConfig:
     """Settings for answer generation."""
 
     model: str = DEFAULT_RESPONSE_MODEL
-    temperature: float = 0.2
+    temperature: Optional[float] = None
     max_output_tokens: Optional[int] = None
     prompt_template: str = (
         "Use the following pieces of context to answer the question at the end.\n"
@@ -71,15 +71,11 @@ def generate_answer(
 
     request_kwargs = {
         "model": params.model,
-        "input": [
-            {
-                "role": "system",
-                "content": [{"type": "text", "text": "You are a helpful assistant that answers concisely."}],
-            },
-            {"role": "user", "content": [{"type": "text", "text": prompt}]},
-        ],
-        "temperature": params.temperature,
+        "instructions": "You are a helpful assistant that answers concisely.",
+        "input": prompt,
     }
+    if params.temperature is not None:
+        request_kwargs["temperature"] = params.temperature
     if params.max_output_tokens is not None:
         request_kwargs["max_output_tokens"] = params.max_output_tokens
 
