@@ -34,7 +34,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--output",
         type=Path,
         default=None,
-        help="Output path prefix for the vector store artifacts.",
+        help="Directory path where the persistent vector store will be written.",
     )
     index_parser.add_argument(
         "--backend",
@@ -82,7 +82,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--index",
         type=Path,
         default=None,
-        help="Path prefix to the vector store artifacts (same value used during indexing).",
+        help="Directory path of the previously persisted vector store.",
     )
     query_parser.add_argument(
         "--backend",
@@ -108,7 +108,6 @@ def _build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Number of matches to return.",
     )
-
     return parser
 
 
@@ -212,6 +211,7 @@ def main(argv: list[str] | None = None) -> int:
                 print("No matches found.")
                 return 0
 
+            print(f"Question: {args.question}")
             print(f"Top {len(results)} matches:")
             for rank, (doc, score) in enumerate(results, start=1):
                 snippet = doc.content.replace("\n", " ")
@@ -223,6 +223,7 @@ def main(argv: list[str] | None = None) -> int:
                     {snippet}
                     """
                 ).strip())
+            print("")
             return 0
 
     except ModuleNotFoundError as exc:

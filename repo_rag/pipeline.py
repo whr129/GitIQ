@@ -7,7 +7,7 @@ from .chunker import chunk_documents
 from .documents import Document
 from .embeddings import EmbeddingBackend
 from .loader import iter_repository_documents
-from .vectorstore import NumpyVectorStore
+from .vectorstore import VectorStore, create_persistent_vector_store, load_persistent_vector_store
 
 
 def build_index(
@@ -34,17 +34,17 @@ def build_index(
 
     embeddings = embedder.embed(texts)
 
-    store = NumpyVectorStore()
+    store = create_persistent_vector_store(output_path)
     store.add(embeddings, texts, metadatas)
     store.save(output_path)
 
 
-def load_index(path: Path) -> NumpyVectorStore:
-    return NumpyVectorStore.load(path)
+def load_index(path: Path) -> VectorStore:
+    return load_persistent_vector_store(path)
 
 
 def query_index(
-    store: NumpyVectorStore,
+    store: VectorStore,
     *,
     embedder: EmbeddingBackend,
     question: str,
@@ -63,4 +63,3 @@ def query_index(
         )
         documents.append((doc, score))
     return documents
-
