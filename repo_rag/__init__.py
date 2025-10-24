@@ -1,5 +1,6 @@
 """RAG starter toolkit for source repositories."""
 
+from .config import RepoRagConfig, load_config
 from .documents import Document
 from .embeddings import (
     DEFAULT_OPENAI_MODEL,
@@ -18,4 +19,6 @@ __all__ = [
     "build_index",
     "load_index",
     "query_index",
+    "RepoRagConfig",
+    "load_config",
 ]
