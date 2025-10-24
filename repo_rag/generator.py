@@ -15,7 +15,7 @@ from .embeddings import (
 )
 from .pipeline import build_index, load_index, query_index
 
-DEFAULT_RESPONSE_MODEL = "gpt-5"
+DEFAULT_RESPONSE_MODEL = "gpt-5-nano"
 
 @dataclass
 class GenerationConfig:
