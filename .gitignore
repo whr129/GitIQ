@@ -1,0 +1,27 @@
+# Bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Distribution / build artifacts
+build/
+dist/
+*.egg-info/
+
+# Tooling
+.DS_Store
+.idea/
+.vscode/
+
+# Local configuration
+.env
+.env.local
+.env.*
+
+# Generated vector store artifacts
+repo_index.npy
+repo_index.jsonl
