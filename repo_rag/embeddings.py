@@ -22,7 +22,7 @@ class SentenceTransformerBackend:
 
     def __post_init__(self) -> None:
         sentence_transformers = importlib.import_module("sentence_transformers")
-        self._model = sentence_transformers.SentenceTransformer(self.model_name)
+        self._model = sentence_transformers.SentenceTransformer(self.model_name, device="cpu")
 
     def embed(self, texts: Sequence[str]) -> List[List[float]]:
         vectors = self._model.encode(list(texts), convert_to_numpy=False, normalize_embeddings=True)
