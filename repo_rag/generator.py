@@ -27,7 +27,7 @@ class GenerationConfig:
     prompt_template: str = (
         "Use the following pieces of context to answer the question at the end.\n"
         "If you don't know the answer, just say that you don't know, don't try to make up an answer.\n"
-        "Use three sentences maximum and keep the answer as concise as possible.\n"
+        "You are also given the line range of each chunk of code, you should source your answer with the code that is relevant, and give out the line range."
         'Always say "thanks for asking!" at the end of the answer.\n\n'
         "{context}\n\n"
         "Question: {question}\n\n"
@@ -45,7 +45,7 @@ def _build_context(chunks: Sequence[Document]) -> str:
         path = metadata.get("path", "unknown")
         header = f"[{idx}] path={path}"
         body = chunk.content
-        formatted_chunks.append(f"{header}\n{body}")
+        formatted_chunks.append(f"{header}\n{str(metadata)}\n{body}")
     return "\n\n".join(formatted_chunks)
 
 
@@ -210,8 +210,10 @@ def _write_log(
 
     for rank, (doc, score) in enumerate(results, start=1):
         snippet = doc.content.replace("\n", " ")
+        """
         if len(snippet) > 160:
             snippet = snippet[:157] + "..."
+        """
         metadata = doc.metadata or {}
         path = metadata.get("path", doc.path)
         lines.append(f"[{rank}] score={score:.3f} path={path}")
