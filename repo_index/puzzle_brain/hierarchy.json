@@ -1,0 +1,19 @@
+{
+  "type": "directory",
+  "name": "puzzle_brain",
+  "path": ".",
+  "children": [
+    {
+      "type": "file",
+      "name": "minesweeper.js",
+      "path": "minesweeper.js",
+      "suffix": ".js"
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "path": "README.md",
+      "suffix": ".md"
+    }
+  ]
+}

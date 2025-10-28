@@ -54,6 +54,7 @@ def iter_repository_documents(
     """Yield `Document` instances for each text file in a repository-like tree."""
 
     include_extensions = include_extensions or DEFAULT_EXTENSIONS
+    include_extensions = tuple(ext.lower() for ext in include_extensions)
     exclude_dirs = set(exclude_dirs)
 
     for dirpath, dirnames, filenames in os.walk(root):
@@ -82,9 +83,13 @@ def iter_repository_documents(
             except UnicodeDecodeError:
                 continue
 
+            line_count = text.count("\n") + (1 if text else 0)
+
             yield Document(
                 path=str(file_path.relative_to(root)),
                 content=text,
-                metadata={"size": str(size)},
+                metadata={
+                    "size": str(size),
+                    "line_count": str(line_count),
+                },
             )
-

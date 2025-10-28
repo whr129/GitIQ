@@ -1,0 +1,107 @@
+[
+  {
+    "path": "README.md",
+    "chunk_range": "0:253",
+    "line_range": "1:2"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "0:500",
+    "line_range": "1:21"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "400:900",
+    "line_range": "17:30"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "800:1300",
+    "line_range": "28:39"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "1200:1700",
+    "line_range": "36:49"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "1600:2100",
+    "line_range": "46:62"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "2000:2500",
+    "line_range": "59:76"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "2400:2900",
+    "line_range": "73:87"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "2800:3300",
+    "line_range": "86:95"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "3200:3700",
+    "line_range": "93:109"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "3600:4100",
+    "line_range": "107:120"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "4000:4500",
+    "line_range": "120:134"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "4400:4900",
+    "line_range": "132:154"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "4800:5300",
+    "line_range": "144:166"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "5200:5700",
+    "line_range": "162:175"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "5600:6100",
+    "line_range": "173:186"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "6000:6500",
+    "line_range": "182:190"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "6400:6900",
+    "line_range": "189:203"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "6800:7300",
+    "line_range": "201:214"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "7200:7700",
+    "line_range": "212:225"
+  },
+  {
+    "path": "minesweeper.js",
+    "chunk_range": "7600:8016",
+    "line_range": "222:236"
+  }
+]

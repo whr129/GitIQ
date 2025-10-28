@@ -1,0 +1,12 @@
+[
+  {
+    "path": "README.md",
+    "size_bytes": 253,
+    "line_count": 3
+  },
+  {
+    "path": "minesweeper.js",
+    "size_bytes": 8016,
+    "line_count": 238
+  }
+]
