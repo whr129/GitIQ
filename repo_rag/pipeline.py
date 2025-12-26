@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import List, Sequence
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Iterable, List, Sequence
 
 from .chunker import chunk_documents
 from .documents import Document
@@ -82,6 +83,41 @@ def _chunks_to_json(chunks: Sequence[Document]) -> list[dict]:
     return records
 
 
+def _batched(seq: Sequence[str], batch_size: int) -> Iterable[list[str]]:
+    for idx in range(0, len(seq), batch_size):
+        yield list(seq[idx: idx + batch_size])
+
+
+def _embed_with_workers(
+    embedder: EmbeddingBackend,
+    texts: Sequence[str],
+    *,
+    batch_size: int = 32,
+    max_workers: int = 4,
+) -> list[list[float]]:
+    """Embed texts concurrently to speed up large indexing runs."""
+
+    if max_workers <= 1 or len(texts) <= batch_size:
+        return embedder.embed(texts)
+
+    batches = list(_batched(texts, batch_size))
+    results: list[list[list[float]]] = [None] * len(batches)  # type: ignore[assignment]
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_map = {
+            executor.submit(embedder.embed, batch): idx
+            for idx, batch in enumerate(batches)
+        }
+        for future in as_completed(future_map):
+            batch_idx = future_map[future]
+            results[batch_idx] = future.result()
+
+    flattened: list[list[float]] = []
+    for batch_vectors in results:
+        flattened.extend(batch_vectors)
+    return flattened
+
+
 def build_index(
     repo_root: Path,
     *,
@@ -90,6 +126,8 @@ def build_index(
     include_extensions: Sequence[str] | None = None,
     chunk_size: int = 500,
     chunk_overlap: int = 100,
+    max_workers: int = 4,
+    embedding_batch_size: int = 32,
 ) -> None:
     """Create a vector index for the repository at `repo_root`."""
 
@@ -124,7 +162,12 @@ def build_index(
     texts = [chunk.content for chunk in chunks]
     metadatas = [chunk.as_metadata() for chunk in chunks]
 
-    embeddings = embedder.embed(texts)
+    embeddings = _embed_with_workers(
+        embedder,
+        texts,
+        batch_size=embedding_batch_size,
+        max_workers=max_workers,
+    )
 
     store = create_persistent_vector_store(output_path)
     store.add(embeddings, texts, metadatas)

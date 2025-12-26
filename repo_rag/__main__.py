@@ -65,6 +65,18 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Number of overlapping characters between chunks.",
     )
     index_parser.add_argument(
+        "--max-workers",
+        type=int,
+        default=None,
+        help="Number of threads to use when embedding chunks (default: 4).",
+    )
+    index_parser.add_argument(
+        "--embedding-batch-size",
+        type=int,
+        default=None,
+        help="Number of chunks per embedding batch submitted to each worker (default: 32).",
+    )
+    index_parser.add_argument(
         "--extensions",
         nargs="*",
         default=None,
@@ -156,6 +168,11 @@ def main(argv: list[str] | None = None) -> int:
             if chunk_overlap is None:
                 chunk_overlap = config_index.chunk_overlap if config_index and config_index.chunk_overlap else 100
 
+            max_workers = args.max_workers if args.max_workers is not None else 4
+            embedding_batch_size = (
+                args.embedding_batch_size if args.embedding_batch_size is not None else 32
+            )
+
             extensions = (
                 args.extensions
                 if args.extensions is not None
@@ -170,6 +187,8 @@ def main(argv: list[str] | None = None) -> int:
                 include_extensions=extensions,
                 chunk_size=chunk_size,
                 chunk_overlap=chunk_overlap,
+                max_workers=max_workers,
+                embedding_batch_size=embedding_batch_size,
             )
             print(f"Index written to '{output_path}'.")
             return 0
