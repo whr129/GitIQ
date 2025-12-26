@@ -70,6 +70,11 @@ def _build_change_documents(
             continue
         try:
             text = file_path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            try:
+                text = file_path.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
         except OSError:
             continue
         metadata = {"path": rel_path, "source": "git_change"}

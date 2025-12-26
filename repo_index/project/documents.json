@@ -1,0 +1,22 @@
+[
+  {
+    "path": "file2.txt",
+    "size_bytes": 0,
+    "line_count": 0
+  },
+  {
+    "path": "file3.txt",
+    "size_bytes": 0,
+    "line_count": 0
+  },
+  {
+    "path": "file1.txt",
+    "size_bytes": 0,
+    "line_count": 0
+  },
+  {
+    "path": "secrets.txt",
+    "size_bytes": 26,
+    "line_count": 2
+  }
+]

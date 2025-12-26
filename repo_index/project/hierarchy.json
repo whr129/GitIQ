@@ -1,0 +1,31 @@
+{
+  "type": "directory",
+  "name": "project",
+  "path": ".",
+  "children": [
+    {
+      "type": "file",
+      "name": "file1.txt",
+      "path": "file1.txt",
+      "suffix": ".txt"
+    },
+    {
+      "type": "file",
+      "name": "file2.txt",
+      "path": "file2.txt",
+      "suffix": ".txt"
+    },
+    {
+      "type": "file",
+      "name": "file3.txt",
+      "path": "file3.txt",
+      "suffix": ".txt"
+    },
+    {
+      "type": "file",
+      "name": "secrets.txt",
+      "path": "secrets.txt",
+      "suffix": ".txt"
+    }
+  ]
+}
